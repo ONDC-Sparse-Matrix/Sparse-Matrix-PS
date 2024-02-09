@@ -2,16 +2,16 @@ package controllers
 
 import (
 	"context"
-	"backend-server/configs"
-	"backend-server/models"
-	"backend-server/responses"
 	"net/http"
+	"regional_server/configs"
+	"regional_server/models"
+	"regional_server/responses"
 	"time"
 
 	"github.com/gofiber/fiber/v2"
 	"go.mongodb.org/mongo-driver/bson"
-	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/bson/primitive"
+	"go.mongodb.org/mongo-driver/mongo"
 )
 
 var mapCollection *mongo.Collection = configs.GetCollection(configs.DB, "map")
@@ -43,7 +43,6 @@ func GetMerchants(c *fiber.Ctx) error {
 	}
 	return c.Status(http.StatusOK).JSON(responses.Response{Status: http.StatusOK, Message: "success", Data: &fiber.Map{"data": response}})
 }
-
 
 func AddMerchants(c *fiber.Ctx) error {
 	//! handle the stream and put data in database

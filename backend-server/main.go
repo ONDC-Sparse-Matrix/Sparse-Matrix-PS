@@ -1,17 +1,18 @@
 package main
 
 import (
-    "backend-server/configs"
-    "backend-server/routes" //add this
-    "github.com/gofiber/fiber/v2"
+	"regional_server/configs"
+	"regional_server/routes" //add this
+
+	"github.com/gofiber/fiber/v2"
 )
 
 func main() {
-    app := fiber.New()
+	app := fiber.New()
 
-    configs.ConnectDB()
+	configs.ConnectDB()
 
-    routes.MerchantRoute(app)
+	routes.MerchantRoute(app)
 
-    app.Listen(":4000")
+	app.Listen(":4000")
 }
