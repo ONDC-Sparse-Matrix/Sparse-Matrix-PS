@@ -6,15 +6,21 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { MerchantData } from "@/lib/types";
 
-export function MerchantCard() {
+export function MerchantCard(props: MerchantData) {
   return (
     <>
-      <Card className="drop-shadow-sm my-4 px-2 transition-all duration-200 rounded-full hover:shadow-md">
+      <Card className="drop-shadow-sm my-4 px-2 transition-all duration-200 hover:shadow-md">
         <CardHeader className="flex flex-row justify-between">
-          <CardTitle>John Doe</CardTitle>
-          <CardDescription>john.doe@gmail.com</CardDescription>
+          <CardTitle>{props.name}</CardTitle>
+          <CardDescription>{props.email}</CardDescription>
         </CardHeader>
+        <CardContent>
+          <CardDescription className="text-sm">
+            {props.pincodes.join(", ")}
+          </CardDescription>
+        </CardContent>
       </Card>
     </>
   );

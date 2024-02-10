@@ -1,5 +1,6 @@
 import { Button } from "./ui/button";
 import { Github } from "lucide-react";
+import { Separator } from "@/components/ui/separator";
 
 export function Navbar() {
   return (
@@ -10,14 +11,18 @@ export function Navbar() {
             href="/"
             className="flex items-center space-x-3 rtl:space-x-reverse"
           >
-            <span className="self-center text-2xl font-extrabold text-blue-500 whitespace-nowrap dark:text-white">
+            <span className="text-2xl font-extrabold text-blue-500 whitespace-nowrap dark:text-white">
               matriX
             </span>
           </a>
           <div className="hidden w-full md:block md:w-auto" id="navbar-default">
             <ul className="p-4 md:p-0 mt-4 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
               <li>
-                <a href="https://github.com/ONDC-Sparse-Matrix" target="_blank"><Button variant={'link'}><Github /></Button></a>
+                <a href="https://github.com/ONDC-Sparse-Matrix" target="_blank">
+                  <Button variant={"link"}>
+                    <Github />
+                  </Button>
+                </a>
               </li>
             </ul>
           </div>
