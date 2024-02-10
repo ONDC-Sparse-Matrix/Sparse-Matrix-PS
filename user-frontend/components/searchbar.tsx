@@ -17,18 +17,54 @@ export function SearchBar(props: SearchBarProps) {
 
   const { setMerchantData, setTimeTakenForRequest } = useStore();
 
+  const retrieveCurrentPincodeDataFromLocalStorage = () => {
+    let data: MerchantData[] = JSON.parse(
+      window.localStorage.getItem("merchantData") || "[]"
+    );
+    let currentPincodeData: MerchantData[] = [];
+    for (let i = 0; i < data.length; i++) {
+      if (data[i].pincodes.includes(pincode)) {
+        currentPincodeData.push(data[i]);
+      }
+    }
+    return currentPincodeData;
+  };
+
+  const renewData = async () => {
+    let data = await fetchPincodeData();
+    window.localStorage.setItem("merchantData", JSON.stringify(data));
+    let newPincodeData = retrieveCurrentPincodeDataFromLocalStorage();
+    setMerchantData(newPincodeData);
+  }
+
   const fetchPincodeData = async () => {
     // TODO: Change the fetch endpoint.
-    // const res = await fetch(`localhost:3000/pincode/${pincode}`);
+    // const res = await fetch(`http://192.168.180.253:3001/pincode/${pincode}`);
     // const data: MerchantData[] = await res.json();
-
+    // console.log(data)
     // Mock data
-    const data: MerchantData[] = [
+    const data = [
       {
-        name: "John Doe",
+        name: "John doe",
         email: "john.doe@gmail.com",
-        pincodes: ["110001", "110002", "110003"],
+        pincodes: ["121007", "121003", "121004"],
       },
+      {
+        name: "New",
+        email: "newMe@gmail.com",
+        pincodes: ["121002"],
+      },
+      {
+        name: "Lol",
+        email: "john.doe@gmail.com",
+        pincodes: ["121002", "121003", "121004"],
+      },
+      {
+        name: "hehehh",
+        email: "newnwenw@gmail.com",
+        pincodes: ["121005", "121006"],
+      },
+      
     ];
     return data;
   };
@@ -38,24 +74,20 @@ export function SearchBar(props: SearchBarProps) {
 
     let start = performance.now();
     if (!window.localStorage.getItem("merchantData")) {
-      const data = await fetchPincodeData();
+      let data = await fetchPincodeData();
       window.localStorage.setItem("merchantData", JSON.stringify(data));
       setMerchantData(data);
     } else {
-      let data: MerchantData[] = JSON.parse(
-        window.localStorage.getItem("merchantData") || "[]"
-      );
-      let currentPincodeData: MerchantData[] = [];
-      for (let i = 0; i < data.length; i++) {
-        if (data[i].pincodes.includes(pincode)) {
-          currentPincodeData.push(data[i]);
-        }
+      let currentPincodeData = retrieveCurrentPincodeDataFromLocalStorage();
+      if (currentPincodeData.length === 0) {
+        await renewData()
+      } else {
+        setMerchantData(currentPincodeData);
       }
-      setMerchantData(currentPincodeData);
     }
 
     let end = performance.now();
-    setTimeTakenForRequest(end - start);
+    setTimeTakenForRequest(end - start); // in ms
 
     router.push(`/search?pincode=${pincode}`);
   };
@@ -75,7 +107,7 @@ export function SearchBar(props: SearchBarProps) {
               onChange={(e) => {
                 setPincode(e.target.value);
               }}
-              className="bg-gray-50 dark:bg-gray-800 transition-all duration-300 p-6 ps-12 text-md rounded-full focus:shadow-md"
+              className="bg-sky-50 dark:bg-gray-800 transition-all duration-300 p-6 ps-12 text-md rounded-full focus:shadow-md"
             />
           </form>
         </div>

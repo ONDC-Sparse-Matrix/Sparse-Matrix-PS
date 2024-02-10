@@ -23,7 +23,7 @@ export default function Search() {
             <AlertDescription>
               Time taken for request:{" "}
               <span className="text-blue-500 font-bold">
-                {timeTakenForRequest}ms
+                {timeTakenForRequest/1000}s
               </span>
             </AlertDescription>
           </Alert>
