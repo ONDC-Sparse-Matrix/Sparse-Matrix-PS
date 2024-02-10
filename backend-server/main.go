@@ -12,7 +12,8 @@ func main() {
 
 	configs.ConnectDB()
 
-	routes.MerchantRoute(app)
+	routes.MerchantRouter(app)
+	routes.MapRouter(app)
 
 	app.Listen(":4000")
 }

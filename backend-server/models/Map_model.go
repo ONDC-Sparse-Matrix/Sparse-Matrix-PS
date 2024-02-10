@@ -1,11 +1,8 @@
 package models
 
-import (
-	"go.mongodb.org/mongo-driver/bson/primitive"
-)
+import ()
 
 type Map struct {
-	Id       primitive.ObjectID   `json:"id,omitempty"`
-	PIN_CODE string               `json:"pinCode,omitempty" validate:"required"`
-	Array    []string `json:"merchants,omitempty" bson:"merchants,omitempty"`
+	PIN_CODE string   `json:"pin_code,omitempty" validate:"required"`
+	MERCHANT_IDS    []string `json:"merchant_ids,omitempty" bson:"merchant_ids,omitempty"`
 }
