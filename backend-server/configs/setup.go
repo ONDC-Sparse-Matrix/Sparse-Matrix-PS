@@ -3,10 +3,11 @@ package configs
 import (
 	"context"
 	"fmt"
-	"go.mongodb.org/mongo-driver/mongo"
-	"go.mongodb.org/mongo-driver/mongo/options"
 	"log"
 	"time"
+
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 func ConnectDB() *mongo.Client {
@@ -32,6 +33,6 @@ func ConnectDB() *mongo.Client {
 var DB *mongo.Client = ConnectDB()
 
 func GetCollection(client *mongo.Client, collectionName string) *mongo.Collection {
-	collection := client.Database("remoteServer_A").Collection(collectionName)
+	collection := client.Database("regionalServer_A").Collection(collectionName)
 	return collection
 }

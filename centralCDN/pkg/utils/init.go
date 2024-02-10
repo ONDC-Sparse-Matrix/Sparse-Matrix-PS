@@ -8,7 +8,7 @@ import (
 
 func InitCacheServerList() {
 	// var cacheServerList types.CacheServerList
-	types.CacheServerList = append(types.CacheServerList, types.CacheServer{Host: "localhost", Port: "3000"})
+	types.CacheServerList = append(types.CacheServerList, types.CacheServer{Host: "localhost", Port: "4000"})
 	types.CacheServerList = append(types.CacheServerList, types.CacheServer{Host: "localhost", Port: "8001"})
 	types.CacheServerList = append(types.CacheServerList, types.CacheServer{Host: "localhost", Port: "8002"})
 	types.CacheServerList = append(types.CacheServerList, types.CacheServer{Host: "localhost", Port: "8003"})

@@ -14,6 +14,8 @@
 *.dll
 *.out
 
+.env
+
 # Local binary files
 /bin/
 /pkg/

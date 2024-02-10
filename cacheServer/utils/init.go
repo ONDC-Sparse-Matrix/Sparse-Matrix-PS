@@ -6,8 +6,8 @@ import (
 
 func InitServer() {
 	server := types.ServerInfo{
-		Host: "192.168.45.208",
-		Port: "4000",
+		Host: "localhost",
+		Port: "5000",
 	}
 	types.Server = server
 }

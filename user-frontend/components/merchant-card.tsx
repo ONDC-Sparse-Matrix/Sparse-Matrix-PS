@@ -16,11 +16,6 @@ export function MerchantCard(props: MerchantData) {
           <CardTitle>{props.name}</CardTitle>
           <CardDescription>{props.email}</CardDescription>
         </CardHeader>
-        <CardContent>
-          <CardDescription className="text-sm">
-            {props.pincodes.join(", ")}
-          </CardDescription>
-        </CardContent>
       </Card>
     </>
   );

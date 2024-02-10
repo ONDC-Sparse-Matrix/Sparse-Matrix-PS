@@ -15,5 +15,5 @@ func main() {
 	routes.MerchantRouter(app)
 	routes.MapRouter(app)
 
-	app.Listen(":4000")
+	app.Listen(":5000")
 }

@@ -21,7 +21,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-var mapCollection *mongo.Collection = configs.GetCollection(configs.DB, "map")
+var mapCollection *mongo.Collection = configs.GetCollection(configs.DB, "maps")
 var merchantsCollection *mongo.Collection = configs.GetCollection(configs.DB, "merchants")
 
 type NewMerchant struct {
@@ -43,7 +43,7 @@ type PincodeInfo struct {
 var PincodeInfoList []PincodeInfo
 
 func GetMerchants(c *fiber.Ctx) error {
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 100*time.Second)
 	defer cancel()
 
 	pinCode := c.Params("pincode")
@@ -99,7 +99,6 @@ func GetMerchants(c *fiber.Ctx) error {
 					Data:    &fiber.Map{"data": err.Error()},
 				})
 			}
-			fmt.Println(cacheM)
 			cacheSingleresponse = append(cacheSingleresponse, cacheM)
 		}
 
@@ -110,11 +109,12 @@ func GetMerchants(c *fiber.Ctx) error {
 		fmt.Println("pincode = ", pincodeInfo)
 		cacheResponse = append(cacheResponse, pincodeInfo)
 	}
-	fmt.Println("cache response", cacheResponse)
+	fmt.Println("CACHE RESPONSE", cacheResponse)
 	// finding current response
 	var merchants models.Map
 	err = mapCollection.FindOne(ctx, bson.M{"pin_code": pinCode}).Decode(&merchants)
-	fmt.Println("Current Response", merchants)
+	fmt.Println("ERROR", err)
+	fmt.Println("CURRENT RESPONSE", merchants)
 	if err != nil {
 		return c.Status(http.StatusInternalServerError).JSON(responses.Response{
 			Status:  http.StatusInternalServerError,

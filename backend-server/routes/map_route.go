@@ -7,5 +7,5 @@ import (
 )
 
 func MapRouter(app *fiber.App) {
-	app.Post("/map/update/:pincode",controllers.UpdateMap)
+	app.Get("/map/update/:pincode", controllers.UpdateMap)
 }
