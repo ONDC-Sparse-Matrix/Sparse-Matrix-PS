@@ -3,6 +3,7 @@ package main
 import (
 	"centralCDN/pkg/utils"
 	"fmt"
+	"time"
 
 	"github.com/gofiber/fiber/v2"
 )
@@ -14,10 +15,21 @@ func Initialise() {
 }
 
 func main() {
-	app := fiber.New()
+	config := fiber.Config{
+		ServerHeader: "Cache Server",
+		Prefork:      true,
+		// Concurrency:  1024 * 512,
+	}
+	app := fiber.New(config)
 	Initialise()
-
+	var count int
 	app.Get("/", func(c *fiber.Ctx) error {
+		count++
+		fmt.Println("Welcome ", count)
+
+		time.Sleep(2 * time.Second)
+		fmt.Println("Endd ", count)
+		count--
 		return c.SendString("Hello, World!")
 	})
 
@@ -41,6 +53,26 @@ func main() {
 		// go utils.FetchMerchantData(pincode)
 		return c.SendString(body)
 	})
+
+	// type MerchantAddRequestBody struct {
+	// 	Pincode      string   `json:"pincode"`
+	// 	MerchantList []string `json:"merchantList"`
+	// }
+	// var merchantAddRequestBody MerchantAddRequestBody
+	// app.Post("/merchant/add", func(c *fiber.Ctx) error {
+	// 	if err := c.BodyParser(&merchantAddRequestBody); err != nil {
+	// 		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Invalid request body"})
+	// 	}
+	// 	merchantList := merchantAddRequestBody.MerchantList
+	// 	baseUrl := fmt.Sprintf("http://%s:%s/merchant/new?pincode=%s&date=%s", types.Server.Host, types.Server.Port, pincode, lastModified.String())
+
+	// 	resp, _ := http.Get(baseUrl)
+	// 	body, _ := ioutil.ReadAll(resp.Body) // {status: 200}
+	// 	if string(body) != "200" {
+	// 		types.PincodeInfoList = cacheMiss(pincode, c)
+	// 	}
+	// 	return c.SendString("Recieved Response")
+	// })
 
 	app.Listen(":3001")
 }
